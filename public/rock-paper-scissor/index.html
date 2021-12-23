@@ -1,0 +1,179 @@
+<!doctype html>
+<!-- Copyright © ThroughPuter, Inc. Confidential and proprietary. Patents issued and pending. All rights reserved. -->
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="/framework/js/fpgaServer.js"></script>
+  <script src="js/estimator.js"></script>
+  <script src="js/prediction.js"></script>
+  <script src="js/rps.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/rps.css">
+    <!-- Popup message initial load -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+<style type="text/css">
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    z-index: 100;
+    display: none;
+  }
+
+  .cnt223 a {
+    text-decoration: none;
+  }
+
+  .popup {
+    width: 100%;
+    margin: 0 auto;
+    display: none;
+    position: fixed;
+    z-index: 101;
+  }
+
+  .cnt223 {
+    min-width: 600px;
+    width: 600px;
+    min-height: 150px;
+    margin: 100px auto;
+    background: #f3f3f3;
+    position: relative;
+    z-index: 103;
+    padding: 15px 35px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #000;
+  }
+
+  .cnt223 p {
+    clear: both;
+    color: #555555;
+    /* text-align: justify; */
+    font-size: 15px;
+    font-family: sans-serif;
+  }
+
+  .cnt223 p a {
+    color: #0a5ead;
+    font-weight: bold;
+  }
+
+  .cnt223 .x {
+    float: right;
+    height: 35px;
+    left: 22px;
+    position: relative;
+    top: -25px;
+    width: 34px;
+  }
+
+  .cnt223 .x:hover {
+    cursor: pointer;
+  }
+</style>
+<script type='text/javascript'>
+  $(function() {
+    var overlay = $('<div id="overlay"></div>');
+    overlay.show();
+    overlay.appendTo(document.body);
+    $('.popup').show();
+    $('.close').click(function() {
+      $('.popup').hide();
+      overlay.appendTo(document.body).remove();
+      return false;
+    });
+    $('.x').click(function() {
+      $('.popup').hide();
+      overlay.appendTo(document.body).remove();
+      return false;
+    });
+  });
+</script>
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+   
+  <!-- Popup DIV -->
+  <div class='popup'>
+    <div class='cnt223'>
+      <h3>Rock Paper Scissors Demo App</h3>
+      <p>
+        <b>How to use the application?</b><br/><br/>
+        Try your hand at beating a ThroughPuter-Estimator-powered AI opponent at Rock-Paper-Scissors. 
+        The Estimator will learn your behavior, so the trick is obvious--don't be predictable. 
+        <br />
+        <br />
+        <b>But can you do it?</b><br><br>
+        <a href='' class='close'>Enter</a><br>
+      </p>
+    </div>
+  </div>
+
+  <div id="body">
+    <div id="container" style="margin: 4em;">
+    <p>Copyright © ThroughPuter, Inc. Patents issued and pending. All rights reserved. Contact: <a href="tech@throughputer.com">tech@throughputer.com</a></p>
+    <h1>Rock-Paper-Scissors Demo</h1>
+    <div id="instructions">
+      <p>The demo game uses the ThroughPuter hardware-accelerated Estimator microservice to predict your behavior. See how predictable you are.</p>
+      <p>Click a hand to play.</p>
+    </div>
+    <div id="controls">
+      <input type="checkbox" id="reveal" name="secrecy" value="reveal" /><label for="reveal">Reveal AI Play</label>
+    </div>
+    <div id="scoreboard">
+      <h2>Score: You: <span id="human-score" class="score">0</span> AI: <span id="ai-score" class="score">0</span></h2>
+    </div>
+    <div class="row">
+      <h2 class="player-title">Human</h2>
+    </div>
+    <div v-for="player in players" v-bind:id="player.name + '-player'" class="player">
+      <div v-bind:id="player.name + '-choices'" class="row">
+        <div v-for="hand in hands" class="col-sm-4 choice">
+          <div class="hand-container" v-bind:id="player.name + '-' + hand.name + '-hand'" v-bind:data-hand-index="hand.index">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNUcGiQBAACYwD7IEEwAgAAAABJRU5ErkJggg==" class="hand-background-img"></img>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNc4ODgAwAEFgFuZp/v2QAAAABJRU5ErkJggg==" class="hand-selected-img"></img>
+            <img v-bind:src="'public/' + hand.name + '.png'" class="hand-img"></img>
+          </div>
+        </div>
+      </div>
+      <div v-if="player.name == 'human'" id="winner" v-bind:class="ready ? 'ready' : ''">
+        <p id="winner-message"></p>
+      </div>
+    </div>
+    <div class="row" id="probabilities-row">
+      <div v-for="hand in hands" class="col-sm-4" id="probabilities">
+        <p class="probability" v-bind:index="hand.index"></p>
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="player-title">AI</h2>
+    </div>
+   
+  </div>
+
+
+  <div class="footer">
+    <p>Copyright © ThroughPuter, Inc. Patents issued and pending. All rights reserved. Contact: tech@throughputer.com
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
