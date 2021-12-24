@@ -4,10 +4,10 @@ var port = process.env.PORT || 8000;
 
 
 
-app.use(express.static("public\\rock-paper-scissor\\index.html"));
+app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-    res.send("Hello Worldddd");
+    res.send("Hello Worldddddddd");
 });
 
 app.listen(port);
