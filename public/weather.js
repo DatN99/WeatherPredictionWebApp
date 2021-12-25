@@ -15,7 +15,7 @@ get_data = async () => {
 get_data();
 console.log("get_data called")
 
-setInterval(get_data, 3600000)
+setInterval(get_data, 3600000);
 console.log("setInterval called")
 
 
