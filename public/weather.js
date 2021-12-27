@@ -21,5 +21,3 @@ console.log("setInterval called")
 
 
 
-
-

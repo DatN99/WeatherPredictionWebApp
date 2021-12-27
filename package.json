@@ -11,5 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DatN99/untitled.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DatN99/untitled/issues"
+  },
+  "homepage": "https://github.com/DatN99/untitled#readme"
 }
