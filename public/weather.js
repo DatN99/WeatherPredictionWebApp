@@ -17,7 +17,7 @@ let predictionCB = (estimate, info) => {
     console.log(estimate)
     console.log(info)
   }
-let weatherPrediction = new Prediction(2, false, `wss://bypass.passgraf.com:8104/ws/00u5kmafk6ZG9CVFP4x7`, predictionCB, { onopen: wsReady, onclose: onclosefn, onerror: onerrorfn });
+let weatherPrediction = new Prediction(4, false, `wss://bypass.passgraf.com:8104/ws/00u5kmafk6ZG9CVFP4x7`, predictionCB, { onopen: wsReady, onclose: onclosefn, onerror: onerrorfn });
 
 get_data = async () => {
 
