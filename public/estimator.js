@@ -14,6 +14,7 @@ class Estimator extends fpgaServer {
   //   ready_cb: (opt) Callback for websocket ready or set of callbacks as in fpgaServer constructor (without onmessage).
   constructor(websocket_url, cb, ready_cb) {
     super();
+
     this.wsCb = cb;
 
     // A structure of pending Objects (sent but not received) indexed by `${object.cnt}:${object.prob}:${object.rid}`.
@@ -91,8 +92,8 @@ class Estimator extends fpgaServer {
       );
       debugger;
     }
-    this.pendingObjects[obj_index] = info;
 
+    this.pendingObjects[obj_index] = info;
     // Send to Estimator microservice.
     this.send("OBJECT", objects);
   }

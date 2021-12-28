@@ -31,6 +31,8 @@ class Prediction extends Estimator {
             }
           },
           ready_cb);
+
+
     this.DEPTH = depth;
     this.PROB = prob;
     // History of past DEPTH values.
@@ -44,10 +46,13 @@ class Prediction extends Estimator {
   // Return true if an object was sent, or false if there is not enough history.
   _sendObject(train_value) {
     let ret = this.history.length >= this.DEPTH;
+
+
     if (ret) {
       if (this.history.length > this.DEPTH) {console.log("Error: Premonition: Too much data in Premonition history."); debugger;}
       // Build object to send.
       let train = Number.isInteger(train_value);
+
       if (((this.cnt % 2) == 1) != train) {
         console.log("Error: Premonition: Expect the first send to be a prediction, then alternating between training and prediction.");
         debugger;
@@ -63,7 +68,6 @@ class Prediction extends Estimator {
       if (train) {
         obj.train = train_value;
       }
-
       // Now, send it.
       this.sendObjects([obj], null);
     }
