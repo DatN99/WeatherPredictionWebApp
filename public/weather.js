@@ -33,20 +33,25 @@ let weatherPrediction = new Prediction(4, false, `wss://bypass.passgraf.com:8104
 get_data = async () => {
 
    const fetch_api = await fetch('https://api.openweathermap.org/data/2.5/weather?zip=22031,us&appid=ed558cf47baba6f38e93e70b4e82d2e0')
+
+       //returned promise (http response) to json object
        .then(response => response.json())
 
+       //categorize temperature into 3 categories based on kelvin
        .then(data => {
            let val = 0;
-           if (data.main.temp < 100){
+           if (data.main.temp < 220){
                val = 0;
            }
-           else if (data.main.temp >= 100 && data.main.temp <= 200){
+           else if (data.main.temp >= 220 && data.main.temp <= 270){
                val = 1;
            }
-           else if (data.main.temp > 200){
+           else if (data.main.temp > 270){
                val = 2;
            }
            temp_list.push(val);})
+
+       //predict
        .then(predict => {
            console.log(temp_list);
            weatherPrediction.predict();
@@ -56,6 +61,7 @@ get_data = async () => {
  }
 
 get_data();
+
 
 setInterval(get_data, 90000);
 
