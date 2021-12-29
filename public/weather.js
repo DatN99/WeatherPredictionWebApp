@@ -53,8 +53,6 @@ get_data = async () => {
            weatherPrediction.pushValue(temp_list[temp_list.length-1]);
        });
 
-
-
  }
 
 get_data();
