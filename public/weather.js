@@ -22,11 +22,13 @@ let wsReady = function () {
 //estimate contains the prediction, a single value, made by the Estimator microservice
 //info is always null
 let predictionCB = (estimate, info) => {
+    document.getElementById("est").innerHTML = estimate;
+
     console.log("Estimate: " + estimate)
 }
 
 //Prediction object
-let weatherPrediction = new Prediction(4, false, `wss://bypass.passgraf.com:8104/ws/00u5kmafk6ZG9CVFP4x7`, predictionCB, { onopen: wsReady, onclose: onclosefn, onerror: onerrorfn });
+let weatherPrediction = new Prediction(1, false, `wss://bypass.passgraf.com:8104/ws/00u5kmafk6ZG9CVFP4x7`, predictionCB, { onopen: wsReady, onclose: onclosefn, onerror: onerrorfn });
 
 
 
@@ -61,6 +63,8 @@ get_data = async () => {
  }
 
 get_data();
+
+
 
 
 setInterval(get_data, 90000);
