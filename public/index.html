@@ -6,12 +6,32 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <div class = "estimate">
-      <p>The next predicted category is:</p>
-      <p id = "estval"> 0 </p>
+  <div>
+      <h id = "Header">Weather Predictor</h>
   </div>
   <div>
-      <p id = "array"> Wait until API fetches data 3 times </p>
+      <p id = "Categories">Categories for weather (in F):</p>
+      <div class = "zero_cat">
+          <p id = "zero"> 0: </p>
+          <p> temp < 26 </p>
+      </div>
+      <div class = "one_cat">
+          <p id = "one"> 1: </p>
+          <p> 26 <= temp <= 50 </p>
+      </div>
+      <div class = "two_cat">
+          <p id = "two"> 2: </p>
+          <p> temp > 50 </p>
+      </div>
+  </div>
+  <div class = "estimate">
+      <p>The next predicted category is:</p>
+      <p id = "estval"> null </p>
+  </div>
+  <div id = "history_array">
+      <p> Wait until API fetches data </p>
+      <p id = "wait"> 5 </p>
+      <p>more time(s) to see history of categories </p>
   </div>
 
 

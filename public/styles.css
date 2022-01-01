@@ -1,3 +1,41 @@
+#Header {
+    font-size: 60px;
+
+}
+
+#Categories {
+    font-size: 20px;
+}
+
+.zero_cat {
+    display: flex;
+    align-items: center;
+}
+
+#zero {
+    padding: 6px;
+    font-weight: bold;
+}
+
+.one_cat {
+    display: flex;
+    align-items: center;
+}
+
+#one {
+    padding: 6px;
+    font-weight: bold;
+}
+
+.two_cat {
+    display: flex;
+    align-items: center;
+}
+
+#two {
+    padding: 6px;
+    font-weight: bold;
+}
 .estimate {
     display: flex;
     align-items: center;
@@ -7,4 +45,14 @@
 
 #estval {
     padding: 6px;
+}
+
+#history_array {
+    display: flex;
+    align-items: center;
+}
+
+#wait {
+    padding: 4px;
+    font-weight: bold;
 }
