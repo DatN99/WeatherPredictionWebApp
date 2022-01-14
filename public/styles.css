@@ -1,5 +1,8 @@
 #Header {
+    position:relative;
+    left: 720px;
     font-size: 60px;
+    
 
 }
 
@@ -55,4 +58,9 @@
 #wait {
     padding: 4px;
     font-weight: bold;
+}
+
+#pieChart {
+    left: 1300px;
+    bottom: 235px;
 }

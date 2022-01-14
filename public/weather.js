@@ -1,3 +1,97 @@
+//line chart variables
+let labels = 1
+const xLabels = [1]
+const yPercentage = []
+
+//pie chart variable
+const pieData = [0, 1]
+
+//calculating ratios from prediction
+let correct = 0
+let total = 0
+let myEstimate = -1
+
+
+/**Configuring Line Chart */
+
+const data = {
+labels: xLabels,
+datasets: [{
+    label: 'Estimator Lab Predictions',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: yPercentage,
+}]
+};
+
+const config = {
+type: 'line',
+data: data,
+options: {
+    scales: {
+        y: {
+            title: {
+                text: 'Percentage (%)',
+                display: true
+        },
+            suggestedMin: 0,
+            suggestedMax: 100,
+
+        
+        },
+
+        x: {
+            title: {
+                text: 'Number of Calls',
+                display: true
+            }
+            
+        }
+    }
+}
+};
+
+const myChart = new Chart(
+document.getElementById('lineChart'),
+config
+);
+
+
+/**Configuring Pie Chart */
+
+const data1 = {
+    labels: [
+      'Incorrect: 0%',
+      'Correct: 0%' 
+    ],
+    datasets: [{
+      label: 'My First Dataset',
+      data: pieData,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      
+    }]
+  };
+
+const config1 = {
+    type: 'pie',
+    data: data1,
+    options: {
+        legend: {
+            display:false
+        }
+    }
+  };
+
+const pieChart = new Chart(
+document.getElementById('pieChart'),
+config1
+);
+
+
 //randomly selected 25 working zip codes from openweather api
 let zip_list = [85607, 94520, 81410, 32608, 30062, 96753, 51653, 83871, 60689, 46401, 67572, 42069, 22031, 49094, 56729, 64076, 59833, 28053, 69356, 88415, 89102, 13763, 43056, 74640, 84652]
 
@@ -28,11 +122,14 @@ let predictionCB = (estimate, info) => {
     document.getElementById("estval").innerHTML = estimate;
     document.getElementById("history_array").innerHTML = "List of past values: [" + temp_list + "]";
     console.log("Estimate: " + estimate)
+
+    myEstimate = estimate
+
 }
+
 
 //Prediction object
 let weatherPrediction = new Prediction(4, false, `wss://bypass.passgraf.com:8104/ws/00u5kmafk6ZG9CVFP4x7`, predictionCB, { onopen: wsReady, onclose: onclosefn, onerror: onerrorfn });
-
 
 
 get_data = async () => {
@@ -50,6 +147,7 @@ get_data = async () => {
        //returned promise (http response) to json object
        .then(response => response.json())
 
+
        //categorize temperature into 3 categories based on kelvin
        .then(data => {
            let val = 0;
@@ -62,6 +160,31 @@ get_data = async () => {
            else if (data.main.temp > 283){
                val = 2;
            }
+
+           //update visuals
+           if (myEstimate > 0){
+               if (myEstimate == val){
+                    correct++
+               } 
+               total++
+
+                //updating line chart
+                myChart.data.datasets[0].data.push((correct/total)*100)
+                myChart.data.labels.push(++labels)
+                myChart.update()
+
+                //updating pie chart
+                correct_ratio = Math.round((correct/total) * 100)
+                incorrect_ratio = (100-correct_ratio)
+
+                pieChart.data.labels[1] = `Correct: ${correct_ratio}%`
+                pieChart.data.labels[0] = `Incorrect: ${incorrect_ratio}%`
+                pieChart.data.datasets[0].data[0] = total-correct
+                pieChart.data.datasets[0].data[1] = correct
+                pieChart.update()
+           }
+
+
            temp_list.push(val);})
 
        //predict
@@ -74,9 +197,6 @@ get_data = async () => {
  }
 
 get_data();
-
-
-
 
 setInterval(get_data, 20000);
 
