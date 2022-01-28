@@ -15,5 +15,8 @@ Using this web app only requires a little bit of waiting. A new prediction is ma
 later. The web app contains a "Wait until API fetches data x more time(s) to see history of categories" where x is updated every time another value is pushed on the Prediction's
 history in order to update the user on when the values will be visible.
 
+A visualization of the accuracy of the Estimator Lab microservice is shown at the top with a line chart and a pie chart from Chart JS. The visualization is continuously updated as predictions come in.
+
 ![Screenshot (59)](https://user-images.githubusercontent.com/86983871/151466269-73647399-cf58-49ba-b8c1-4b90521473bd.png)
 
+![Screenshot (60)](https://user-images.githubusercontent.com/86983871/151466307-586a4777-27cf-4198-be37-43d3e4261238.png)
