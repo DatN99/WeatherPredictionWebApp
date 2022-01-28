@@ -15,5 +15,5 @@ Using this web app only requires a little bit of waiting. A new prediction is ma
 later. The web app contains a "Wait until API fetches data x more time(s) to see history of categories" where x is updated every time another value is pushed on the Prediction's
 history in order to update the user on when the values will be visible.
 
-![Screenshot (58)](https://user-images.githubusercontent.com/86983871/147860631-e0427941-afac-45f6-b4d5-5837468060af.png)
+![Screenshot (59)](https://user-images.githubusercontent.com/86983871/151466269-73647399-cf58-49ba-b8c1-4b90521473bd.png)
 
